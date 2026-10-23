@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inflación en Economías en Desarrollo: Enfoques Monetarista y Estructuralista</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters:[
+      {left:'$$',right:'$$',display:true},
+      {left:'$',right:'$',display:false}
+    ]
+  });"></script>
+  
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Jost:wght@300;400;500;600&family=Inconsolata:wght@400;500&display=swap');
+
+:root {
+  --ink:        #111009;
+  --ink-2:      #3c3a32;
+  --ink-3:      #8a8678;
+  --paper:      #fdfbf6;
+  --paper-2:    #f4f1e8;
+  --paper-3:    #eae6d8;
+  --rule:       #d6d0be;
+  --rust:       #8a3a1a;
+  --rust-l:     #f8ece6;
+  --slate:      #2a4a6a;
+  --slate-l:    #e6ecf4;
+  --sage:       #2a5a3a;
+  --sage-l:     #e6f2ea;
+  --gold:       #7a5a00;
+  --gold-l:     #faf3dc;
+  --plum:       #4a2060;
+  --plum-l:     #f0eaf8;
+  --serif: 'EB Garamond', Georgia, serif;
+  --sans:  'Jost', sans-serif;
+  --mono:  'Inconsolata', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.88;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 3.5rem 2rem 7rem;
+}
+
+header { margin-bottom: 3.5rem; }
+.header-band {
+  display: flex; justify-content: space-between; align-items: baseline;
+  border-top: 3px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  padding: 0.5rem 0;
+  margin-bottom: 1.4rem;
+}
+.doc-id {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-3);
+}
+h1 {
+  font-family: var(--serif); font-size: 2.25rem;
+  font-weight: 700; line-height: 1.1; color: var(--ink);
+  margin-bottom: 0.5rem;
+}
+h1 em { font-style: italic; font-weight: 400; color: var(--rust); }
+
+.epigraph {
+  background: var(--paper-2);
+  border-left: 4px solid var(--slate);
+  padding: 1.5rem;
+  border-radius: 0 8px 8px 0;
+  font-family: var(--sans);
+  font-size: 16px;
+  color: var(--ink-2);
+  line-height: 1.6;
+  margin: 1.5rem 0;
+}
+.epigraph strong { color: var(--slate); text-transform: uppercase; font-size: 14px; letter-spacing: 0.05em; display: block; margin-bottom: 0.5rem; font-family: var(--mono); font-weight: 700;}
+
+h2 {
+  font-family: var(--serif); font-size: 1.42rem; font-weight: 700;
+  color: var(--ink); margin: 3.2rem 0 0.9rem;
+  padding-bottom: 0.35rem; border-bottom: 1px solid var(--rule);
+}
+h3 {
+  font-family: var(--sans); font-size: 0.82rem; font-weight: 600;
+  color: var(--ink-3); margin: 2rem 0 0.55rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+p { margin-bottom: 1rem; }
+
+.pullquote {
+  font-family: var(--serif); font-style: italic;
+  font-size: 1.18rem; line-height: 1.6;
+  color: var(--rust); border-left: 3px solid var(--rust);
+  padding: 0.6rem 1.2rem; margin: 2rem 0;
+}
+
+.math-block {
+  background: var(--paper-2); border-left: 3px solid var(--slate);
+  border-radius: 0 6px 6px 0; padding: 1rem 1.2rem;
+  margin: 1.2rem 0; overflow-x: auto; text-align: center;
+  font-size: 20px;
+}
+.math-block.rust  { border-left-color: var(--rust); }
+.math-block.sage  { border-left-color: var(--sage); }
+.math-block.gold  { border-left-color: var(--gold); }
+.math-block.plum  { border-left-color: var(--plum); }
+
+.formula-desc {
+  font-family: var(--sans); font-size: 15px; color: var(--ink-2);
+  margin-top: -0.5rem; margin-bottom: 1.5rem;
+  background: var(--paper-3); padding: 1rem 1.5rem; border-radius: 6px;
+}
+.formula-desc strong.c-tag { font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--slate); display: block; margin-bottom: 10px; }
+.formula-desc ul { margin: 0; padding-left: 20px; }
+.formula-desc li { margin-bottom: 6px; }
+
+.callout {
+  border-radius: 8px; padding: 1.1rem 1.5rem;
+  font-family: var(--sans); font-size: 15px;
+  margin: 1.5rem 0; line-height: 1.65;
+}
+.callout .c-tag {
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  display: block; margin-bottom: 0.6rem; font-weight: 700;
+}
+.callout.note    { background: var(--slate-l); border: 1px solid #a8bcd4; color: #0a1e34; }
+.callout.warn    { background: var(--gold-l);  border: 1px solid #cca840; color: #2a1e00; }
+.callout.insight { background: var(--plum-l);  border: 1px solid #c0a0d8; color: #200840; }
+.callout.result  { background: var(--sage-l);  border: 1px solid #90c0a0; color: #0a2014; }
+.callout.caution { background: var(--rust-l);  border: 1px solid #d4a090; color: #3a1008; }
+
+.grid-2 {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin: 1.5rem 0;
+}
+.card-box {
+  background: var(--paper-2); border: 1px solid var(--rule);
+  border-radius: 8px; padding: 1.2rem; font-family: var(--sans); font-size: 14.5px;
+}
+.card-box h4 {
+  font-family: var(--mono); font-size: 12px; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--rust); margin-bottom: 0.6rem;
+}
+
+/* ── SIMULATOR ── */
+.sim-panel {
+  background: var(--paper-2); border: 1px solid var(--rule);
+  border-radius: 12px; padding: 1.75rem; margin: 2.2rem 0;
+}
+.panel-label {
+  font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--ink); margin-bottom: 1.4rem;
+  border-bottom: 1px solid var(--rule); padding-bottom: 0.5rem;
+}
+.sim-explanation {
+  font-family: var(--sans); font-size: 14.5px; color: var(--ink-2);
+  margin-bottom: 1.5rem; line-height: 1.6;
+}
+.sim-explanation strong { color: var(--ink); }
+
+.controls { display: flex; flex-direction: column; gap: 0.9rem; margin-bottom: 1.4rem; }
+.ctrl-row { display: flex; align-items: center; gap: 12px; background: white; padding: 10px 15px; border-radius: 6px; border: 1px solid var(--rule); }
+.ctrl-row label { font-family: var(--sans); font-size: 14px; font-weight: 500; color: var(--ink-2); min-width: 240px; }
+.ctrl-row input[type=range] { flex: 1; cursor: pointer; }
+.ctrl-val { font-family: var(--mono); font-size: 14px; font-weight: 600; min-width: 90px; text-align: right; }
+
+.chart-wrap { position: relative; width: 100%; height: 380px; background: white; border-radius: 8px; padding: 12px; border: 1px solid var(--rule); }
+
+footer {
+  margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--rule);
+  font-family: var(--sans); font-size: 13.5px; color: var(--ink-3); line-height: 1.6;
+}
+footer em { font-style: italic; }
+
+@media(max-width:650px){
+  body { padding: 1.5rem 1rem 4rem; font-size: 16px; }
+  h1 { font-size: 1.8rem; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .ctrl-row { flex-direction: column; align-items: flex-start; }
+  .ctrl-row input[type=range] { width: 100%; }
+  .ctrl-val { align-self: flex-end; }
+  .ctrl-row label { min-width: 140px; font-size: 13px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-band">
+    <span class="doc-id">Nota de Clase · Capítulo 12</span>
+    <span class="doc-id">Macroeconomía II</span>
+  </div>
+  <h1>Inflación y Dinámica de Corto Plazo: <em>Monetarismo vs. Estructuralismo</em></h1>
+  <div class="epigraph">
+    <strong>Note Objective</strong>
+    Esta nota interactiva desarrolla formalmente los dos grandes marcos teóricos sobre la dinámica inflacionaria en economías en desarrollo: el <strong>Modelo Monetarista (Ortodoxo)</strong> basado en el financiamiento monetario del déficit fiscal, el señoreaje y las trampas de expectativas; y el <strong>Modelo Estructuralista (Cardoso, 1981)</strong> basado en la rigidez de la oferta agropecuaria, precios relativos y la puja distributiva salarial.
+  </div>
+</header>
+
+
+<h2>1. El Modelo Monetarista (Ortodoxo)</h2>
+
+<p>
+  La visión ortodoxa sostiene que la causa primordial de la inflación es la <strong>creación de dinero</strong> por parte de gobiernos que enfrentan opciones limitadas de endeudamiento (interno y externo) para financiar grandes déficits fiscales.
+</p>
+
+<h3>Demanda de Dinero y Señoreaje</h3>
+
+<p>
+  Suponemos una economía cerrada con producción exógena. Dado que en contextos de alta inflación los precios cambian mucho más rápido que el ingreso real y la tasa de interés real, la demanda de saldos reales adopta la forma semilogarítmica de <strong>Cagan</strong>:
+</p>
+
+<div class="math-block">
+  $$ m \equiv \frac{M}{P} = \exp(-\alpha \pi^a), \quad \alpha > 0 $$
+</div>
+
+<p>
+  El gobierno no puede emitir bonos para el público y financia su déficit presupuestario primario ($d$) exclusivamente mediante <strong>señoreaje</strong> (emisión de base monetaria):
+</p>
+
+<div class="math-block rust">
+  $$ d = \frac{\dot{M}}{P} = \frac{\dot{M}}{M} \cdot \frac{M}{P} = \mu m $$
+</div>
+
+<p>
+  Combinando las ecuaciones (1) y (2), obtenemos la relación fundamental entre el déficit primario, el crecimiento monetario ($\mu$) y la inflación esperada ($\pi^a$):
+</p>
+
+<div class="math-block">
+  $$ d = \mu \exp(-\alpha \pi^a) \quad \Longleftrightarrow \quad \mu = d \exp(\alpha \pi^a) $$
+</div>
+
+<div class="formula-desc">
+  <strong class="c-tag">Variable Definition & Impuesto Inflacionario</strong>
+  <ul>
+    <li><strong>$m \equiv M/P$</strong> : Saldos monetarios reales (la <em>base imponible</em> sobre la que recae el impuesto).</li>
+    <li><strong>$\mu \equiv \dot{M}/M$</strong> : Tasa de crecimiento del stock de dinero nominal (la <em>alícuota</em> del impuesto).</li>
+    <li><strong>$\pi^a$</strong> : Tasa de inflación esperada por el público.</li>
+    <li><strong>$\alpha$</strong> : Semielasticidad de la demanda de dinero respecto a la inflación esperada.</li>
+    <li><strong>¿Por qué hay señoreaje?</strong> Es el ingreso real que el Estado percibe al poner en circulación billetes cuyo costo de producción es casi nulo pero cuyo valor de intercambio es alto. Imprimir dinero actúa como un <strong>impuesto inflacionario</strong> ($\pi m$) porque erosiona el poder adquisitivo de los saldos reales.</li>
+  </ul>
+</div>
+
+<h3>Dinámica, Equilibrios Duales y la Curva de Laffer</h3>
+
+<p>
+  Derivando $m = M/P$ respecto al tiempo obtenemos $\dot{m} = \dot{M}/P - \pi m = (\mu - \pi)m$. Al mismo tiempo, derivando la ecuación de Cagan (1) se tiene $\dot{m}/m = -\alpha \dot{\pi}^a$. Igualando ambas expresiones:
+</p>
+
+<div class="math-block sage">
+  $$ \mu - \pi = -\alpha \dot{\pi}^a \quad \xrightarrow{\text{Estado Estacionario } (\dot{\pi}^a = 0)} \quad \pi = \pi^a = \mu $$
+</div>
+
+<p>
+  En el estado estacionario, la recaudación por señoreaje es $d = \pi \exp(-\alpha \pi)$. ¿Cuál es el <strong>máximo déficit soportable</strong> ($d^s$)? Maximizamos respecto a $\pi$:
+</p>
+
+<div class="math-block gold">
+  $$ \frac{\partial d}{\partial \pi} = e^{-\alpha \pi} - \alpha \pi e^{-\alpha \pi} = e^{-\alpha \pi}(1 - \alpha \pi) = 0 \implies \pi^* = \frac{1}{\alpha} \implies d^s = \frac{e^{-1}}{\alpha} $$
+</div>
+
+<div class="callout caution">
+  <span class="c-tag">So What? · La Trampa de Expectativas y los Dos Equilibrios</span>
+  Como la demanda de dinero cae con la inflación esperada, cualquier déficit $0 < d < d^s$ genera <strong>dos estados estacionarios</strong> (Gráfico de Bruno y Fischer, 1990):
+  <ul style="margin-top:6px; padding-left:20px;">
+    <li><strong>Punto A (Equilibrio de Baja Inflación):</strong> La elasticidad de la demanda de dinero es menor a 1 ($\alpha \pi < 1$). Si el gobierno aumenta la emisión un 1%, el público reduce su demanda de dinero en menos de 1%: la recaudación sube.</li>
+    <li><strong>Punto B (Equilibrio de Alta Inflación):</strong> La elasticidad supera la unidad ($\alpha \pi > 1$). Una economía puede quedar "atrapada" en alta inflación simplemente porque el público espera lo peor: al huir de la moneda, achican la base imponible $m$, forzando al gobierno a emitir todavía más rápido ($\uparrow \mu$) solo para financiar el mismo gasto real.</li>
+  </ul>
+</div>
+
+<!-- SIMULADOR 1: BRUNO & FISCHER -->
+<div class="sim-panel">
+  <div class="panel-label">Simulator 1: Señoreaje y Equilibrios Duales (Bruno & Fischer, 1990)</div>
+  
+  <div class="sim-explanation">
+    <strong>¿Qué muestra este gráfico?</strong> Reproduce la <strong>Figura 12.1</strong> del capítulo y de tus apuntes en el plano $(\mu, \pi^a)$. La recta de 45° representa la condición de estado estacionario ($\pi^a = \mu$). La curva $D$ muestra las combinaciones $(\mu, \pi^a)$ que financian un déficit primario constante $d = \mu \exp(-\alpha \pi^a)$, cuya ordenada en el eje horizontal ($\pi^a=0$) es exactamente $\mu = d$. <br><br>
+    <strong>Interacción:</strong> 
+    <ul style="margin-top: 5px; margin-bottom: 0; padding-left: 20px;">
+      <li>Con un déficit moderado, la curva $D$ corta dos veces a la recta de 45°: en el <strong>Punto A</strong> (baja inflación) y en el <strong>Punto B</strong> (alta inflación).</li>
+      <li>Aumenta el <strong>Déficit Fiscal ($d$)</strong>: verás cómo la curva se desplaza a la derecha ($D \to D' \to D''$). Cuando $d = d^s$, los puntos A y B colapsan en un único punto tangente $E$.</li>
+      <li>Si $d > d^s$ (curva $D''$), <strong>no existe intersección</strong>: el déficit supera el máximo recaudable y la economía entra en una ruta hiperinflacionaria inestable.</li>
+    </ul>
+  </div>
+  
+  <div class="controls">
+    <div class="ctrl-row">
+      <label>Déficit Primario a Financiar ($d$)</label>
+      <input type="range" id="sim1-d" min="0.02" max="0.22" step="0.005" value="0.09" style="accent-color: var(--rust);">
+      <span class="ctrl-val" id="val-sim1-d" style="color: var(--rust);">0.090</span>
+    </div>
+    <div class="ctrl-row">
+      <label>Semielasticidad Cagan ($\alpha$)</label>
+      <input type="range" id="sim1-alpha" min="1.5" max="4.0" step="0.1" value="2.5" style="accent-color: var(--slate);">
+      <span class="ctrl-val" id="val-sim1-alpha" style="color: var(--slate);">2.5</span>
+    </div>
+  </div>
+  
+  <div class="chart-wrap"><canvas id="chart-sim1"></canvas></div>
+</div>
+
+<h3>Formación de Expectativas, Ajuste Monetario y el Efecto Olivera-Tanzi</h3>
+
+<p>
+  La estabilidad de los puntos A y B depende crucialmente de cómo se forman las expectativas y de la velocidad de ajuste del mercado monetario:
+</p>
+
+<div class="grid-2">
+  <div class="card-box">
+    <h4>1. Expectativas Adaptativas</h4>
+    $$\dot{\pi}^a = \beta(\pi - \pi^a), \quad \beta > 0$$
+    Si la velocidad de ajuste es baja ($\beta < 1/\alpha$), el <strong>Punto A es estable</strong> y el Punto B es inestable. Un pequeño aumento del déficit produce un salto instantáneo de $\mu$ (de A a C) porque $\pi^a$ no salta en el impacto, y luego converge gradualmente al nuevo equilibrio $A'$. Si el déficit supera $d^s$, diverge hacia la hiperinflación.
+  </div>
+  <div class="card-box">
+    <h4>2. Expectativas Racionales y Rezago (Kiguel, 1989)</h4>
+    Bajo previsión perfecta ($\beta \to \infty$) con vaciamiento instantáneo, B resulta estable y A inestable, pudiendo saltar instantáneamente a alta inflación. Sin embargo, <strong>Kiguel (1989)</strong> demuestra que si los saldos reales ajustan gradualmente ($\dot{m}/m = \kappa(\ln m^d - \ln m)$), un déficit excesivo ($d_1 > d_0$) hunde la parábola $\dot{m} = \frac{\kappa}{\alpha\kappa-1}(\alpha d + m\ln m)$ por debajo del eje horizontal, desatando la hiperinflación incluso con previsión perfecta.
+  </div>
+</div>
+
+<div class="callout warn">
+  <span class="c-tag">Efecto Olivera-Tanzi & Takeaways del Modelo Monetarista</span>
+  Al ingresar en una ruta de alta inflación o hiperinflación, entra en juego el <strong>Efecto Olivera-Tanzi</strong>: como los impuestos tradicionales se cobran con rezago, la aceleración inflacionaria erosiona el valor real de la recaudación tributaria, ensanchando endógenamente el déficit primario ($d$) y obligando a emitir todavía más dinero en un círculo vicioso.<br><br>
+  <strong>Takeaways:</strong> (1) La moneda es un contrato social de confianza; (2) El financiamiento monetario del gasto tiene un límite matemático estricto ($d^s$); (3) Las expectativas pesimistas pueden operar como una profecía autocumplida.
+</div>
+
+
+<h2>2. El Modelo Estructuralista (Eliana Cardoso, 1981)</h2>
+
+<p>
+  En contraposición al monetarismo, el enfoque estructuralista —muy desarrollado en Argentina y América Latina— parte de que <strong>los precios en el capitalismo son inflexibles a la baja</strong> y que el dinero es pasivo. Una política monetaria restrictiva resulta poco efectiva para frenar la inflación crónica; la raíz del problema reside en el <strong>estrangulamiento de sectores clave</strong> (el cuello de botella agropecuario) y la <strong>puja distributiva</strong> entre trabajadores y capitalistas.
+</p>
+
+<h3>Estructura Productiva Dual: Agro vs. Industria</h3>
+
+<p>
+  Consideramos una economía cerrada que produce dos bienes: un bien <strong>agrícola</strong> ($\tilde{y}_A$, con oferta fija/inelástica a corto plazo y precio flexible $P_A$) y un bien <strong>industrial</strong> ($y_I$, donde las firmas ajustan por cantidades según la demanda). Definimos el <strong>precio relativo de los alimentos</strong> como $\theta \equiv P_A / P_I$.
+</p>
+
+<div class="math-block">
+  $$ Y^{\text{NOM}} = P_A \tilde{y}_A + P_I y_I \quad \xrightarrow{\text{Deflactando por } P_I} \quad y = \frac{Y^{\text{NOM}}}{P_I} = \theta \tilde{y}_A + y_I $$
+</div>
+
+<p>
+  Siendo $0 < \alpha < 1$ la propensión marginal a consumir total y $0 < \delta < 1$ la proporción del consumo destinada a alimentos, las condiciones de equilibrio de ambos mercados son:
+</p>
+
+<div class="math-block sage">
+  $$ \text{Mercado Alimentario:} \quad \theta \tilde{y}_A = \delta \alpha (\theta \tilde{y}_A + y_I) $$
+  $$ \text{Mercado Industrial:} \quad y_I = (1-\delta)\alpha (\theta \tilde{y}_A + y_I) + g $$
+</div>
+
+<h3>Etapa 1: Dinámica sin Conflicto Distributivo ($P_I$ constante)</h3>
+
+<p>
+  Supongamos inicialmente que los precios industriales permanecen constantes ($P_I = 1$, por lo que $\theta = P_A$) y que no hay reclamo salarial. La producción industrial responde gradualmente al exceso de demanda de manufacturas (con velocidad $\upsilon_I > 0$), mientras que el precio agrícola responde al exceso de demanda de alimentos (con velocidad $\upsilon_A > 0$):
+</p>
+
+<div class="math-block">
+  $$ \dot{y}_I = \upsilon_I \big[\alpha(1-\delta)(\theta \tilde{y}_A + y_I) + g - y_I\big] $$
+  $$ \frac{\dot{P}_A}{P_A} = \frac{\dot{\theta}}{\theta} = \upsilon_A \big[\delta \alpha (\theta \tilde{y}_A + y_I) - \theta \tilde{y}_A\big] $$
+</div>
+
+<p>
+  Linealizando el sistema alrededor del estado estacionario (con $g=0$ y $\tilde{y}_A$ normalizado), obtenemos la <strong>Matriz Jacobiana</strong> que rige el diagrama de fases:
+</p>
+
+<div class="math-block plum">
+  $$ \begin{bmatrix} \dot{P}_A \\ \dot{y}_I \end{bmatrix} = \begin{bmatrix} -\upsilon_A(1-\alpha\delta) & \upsilon_A\alpha\delta \\ \upsilon_I\alpha(1-\delta) & -\upsilon_I(1-\alpha(1-\delta)) \end{bmatrix} \begin{bmatrix} P_A \\ y_I \end{bmatrix} $$
+</div>
+
+<div class="formula-desc">
+  <strong class="c-tag">Condiciones de Estabilidad y Pendientes</strong>
+  <ul>
+    <li><strong>Traza del Jacobiano:</strong> $\text{Tr}(J) = -\upsilon_A(1-\alpha\delta) - \upsilon_I(1-\alpha(1-\delta)) < 0$ (siempre negativa).</li>
+    <li><strong>Determinante del Jacobiano:</strong> $\text{Det}(J) > 0 \iff$ la pendiente de la curva $[\dot{y}_I = 0]$ es mayor que la pendiente de la curva $[\dot{P}_A = 0]$:
+      $$ \left.\frac{dP_A}{dy_I}\right|_{\dot{y}_I=0} = \frac{1-\alpha(1-\delta)}{\alpha(1-\delta)} \; > \; \left.\frac{dP_A}{dy_I}\right|_{\dot{P}_A=0} = \frac{\alpha\delta}{1-\alpha\delta} $$
+    </li>
+    <li><strong>Conclusión de la Etapa 1:</strong> La condición de estabilidad garantiza que el efecto ingreso generado por la expansión industrial no agrave el exceso inicial de demanda manufacturera. <strong>No hay tendencia a la inestabilidad</strong> porque asumimos $P_I$ fijo y omitimos el conflicto distributivo.</li>
+  </ul>
+</div>
+
+<!-- SIMULADOR 2: DIAGRAMA DE FASES ETAPA 1 -->
+<div class="sim-panel">
+  <div class="panel-label">Simulator 2: Diagrama de Fases sin Puja Distributiva (Figura 12.3)</div>
+  
+  <div class="sim-explanation">
+    <strong>¿Qué muestra este gráfico?</strong> Representa las curvas de demarcación $[\dot{P}_A = 0]$ y $[\dot{y}_I = 0]$ en el plano $(y_I, P_A)$ junto con la <strong>trayectoria dinámica desde un Punto Inicial A</strong> (donde hay exceso de oferta de alimentos y exceso de demanda de bienes industriales). <br><br>
+    <strong>Interacción:</strong> 
+    <ul style="margin-top: 5px; margin-bottom: 0; padding-left: 20px;">
+      <li>Observa la trayectoria desde el <strong>Punto A</strong>: al inicio, el exceso de oferta de alimentos hace caer $P_A$, mientras el exceso de demanda industrial expande $y_I$. A medida que sube el ingreso real ($y$), aumenta la demanda de alimentos hasta revertir la caída de $P_A$, convergiendo suavemente al equilibrio estable <strong>E</strong>.</li>
+      <li>Modifica el <strong>Gasto Público ($g$)</strong> o la <strong>Propensión a Consumir ($\alpha$)</strong> para ver cómo se desplaza el equilibrio de estado estacionario E.</li>
+    </ul>
+  </div>
+  
+  <div class="controls">
+    <div class="ctrl-row">
+      <label>Gasto Público Industrial ($g$)</label>
+      <input type="range" id="sim2-g" min="5" max="35" step="1" value="15" style="accent-color: var(--sage);">
+      <span class="ctrl-val" id="val-sim2-g" style="color: var(--sage);">15</span>
+    </div>
+    <div class="ctrl-row">
+      <label>Propensión Marginal al Consumo ($\alpha$)</label>
+      <input type="range" id="sim2-alpha" min="0.55" max="0.85" step="0.05" value="0.75" style="accent-color: var(--slate);">
+      <span class="ctrl-val" id="val-sim2-alpha" style="color: var(--slate);">0.75</span>
+    </div>
+  </div>
+  
+  <div class="chart-wrap"><canvas id="chart-sim2"></canvas></div>
+</div>
+
+
+<h2>3. Puja Distributiva y el Ciclo Salario-Precio</h2>
+
+<p>
+  Introducimos ahora el corazón del argumento estructuralista: el <strong>conflicto social por la distribución del ingreso</strong>. Las empresas industriales fijan sus precios aplicando un <em>markup</em> ($\gamma > 0$) sobre los costos laborales unitarios, mientras que los trabajadores negocian salarios nominales buscando alcanzar una <strong>meta de salario real</strong> ($\omega^*$):
+</p>
+
+<div class="math-block rust">
+  $$ (8)\; P_I = (1+\gamma)w \qquad (9)\; w = \omega^* P \qquad (10)\; P = P_A^\delta P_I^{1-\delta} $$
+</div>
+
+<h3>Derivación Paso a Paso del Precio Relativo Requerido ($\theta^*$)</h3>
+
+<p>
+  Siguiendo el desarrollo algebraico de clase, reemplazamos el índice de precios al consumidor (10) en la ecuación de reclamo salarial (9) y luego sustituimos $w$ en la regla de fijación de precios industriales (8):
+</p>
+
+<div class="math-block">
+  $$ P_I = (1+\gamma) \omega^* P_A^\delta P_I^{1-\delta} \implies \frac{P_I}{P_I^{1-\delta}} = (1+\gamma)\omega^* P_A^\delta \implies P_I^\delta = (1+\gamma)\omega^* P_A^\delta $$
+  $$ 1 = (1+\gamma)\omega^* \left(\frac{P_A}{P_I}\right)^\delta = (1+\gamma)\omega^* \theta^\delta \implies \theta^* = \big[(1+\gamma)\omega^*\big]^{-1/\delta} $$
+</div>
+
+<div class="callout insight">
+  <span class="c-tag">El Trilema Distributivo</span>
+  La ecuación (11) $\theta^* = [(1+\gamma)\omega^*]^{-1/\delta}$ demuestra que <strong>el precio relativo de los alimentos ($\theta^*$), el markup empresarial ($\gamma$) y la meta de salario real ($\omega^*$) no pueden subir los tres al mismo tiempo</strong>. Si el precio relativo efectivo supera el umbral tolerado ($\theta > \theta^*$), el salario real efectivo cae por debajo de la meta $\omega^*$ y los sindicatos presionan al alza los salarios nominales.
+</div>
+
+<h3>Mecanismo de Ajuste Salarial y Ecuación Unificada de $\dot{\theta}/\theta$</h3>
+
+<p>
+  Los salarios nominales aumentan en proporción a la brecha entre el precio relativo efectivo ($\theta$) y el requerido ($\theta^*$). Tomando logaritmos en (8), $\ln P_I = \ln(1+\gamma) + \ln w$, y derivando respecto al tiempo obtenemos que la inflación industrial es idéntica a la inflación salarial:
+</p>
+
+<div class="math-block rust">
+  $$ (12)\quad \pi_I = \frac{\dot{P}_I}{P_I} = \frac{\dot{w}}{w} = \kappa(\theta - \theta^*), \quad \kappa > 0 $$
+</div>
+
+<p>
+  Por definición, $\theta = P_A / P_I \implies \ln \theta = \ln P_A - \ln P_I$. Derivando respecto al tiempo y sustituyendo las ecuaciones (7) y (12), llegamos a la <strong>ecuación dinámica unificada (13)</strong>:
+</p>
+
+<div class="math-block sage">
+  $$ (13)\quad \frac{\dot{\theta}}{\theta} = \underbrace{\upsilon_A\big[\alpha\delta(\theta\tilde{y}_A + y_I) - \theta\tilde{y}_A\big]}_{\text{Presión de demanda real (escasez agro)}} - \underbrace{\kappa(\theta - \theta^*)}_{\text{Presión de la puja distributiva}} $$
+</div>
+
+<div class="formula-desc">
+  <strong class="c-tag">Interpretación Económica de la Ecuación (13)</strong>
+  <ul>
+    <li><strong>Primer término:</strong> Si hay escasez de alimentos por mayor actividad e ingreso, el precio agrícola $P_A$ sube, empujando $\theta$ hacia arriba.</li>
+    <li><strong>Segundo término:</strong> Si $\theta > \theta^*$, el reclamo sindical empuja los salarios nominales $w$ y los precios industriales $P_I$ hacia arriba, lo que <em>abarata relativamente</em> los alimentos y empuja $\theta$ hacia abajo.</li>
+  </ul>
+</div>
+
+<!-- SIMULADOR 3: EL CICLO SALARIO-PRECIO (CARDOSO) -->
+<div class="sim-panel">
+  <div class="panel-label">Simulator 3: Sobredeterminación y Ciclo Salario-Precio (Figura 12.4)</div>
+  
+  <div class="sim-explanation">
+    <strong>¿Qué muestra este gráfico?</strong> Reproduce la <strong>Figura 12.4</strong> (y el gráfico de 3 rectas de tus apuntes) en el plano $(y_I, \theta)$: la recta roja $[\dot{y}_I = 0]$ (equilibrio industrial), la recta azul $AA$ o $[\dot{P}_A = 0]$ (equilibrio alimentario) y la recta verde $[\dot{\theta} = 0]$ (donde la suba de $P_A$ iguala a la suba de $P_I$). <br><br>
+    <strong>¿Por qué hay 3 puntos críticos y ningún equilibrio de largo plazo?</strong>
+    <ul style="margin-top: 5px; margin-bottom: 0; padding-left: 20px;">
+      <li><strong>Punto B (en tus apuntes, A):</strong> Cruce de $[\dot{P}_A=0]$ y $[\dot{\theta}=0]$ donde $\theta = \theta^*$. Hay paz salarial y equilibrio alimentario, pero existe <em>exceso de demanda de bienes industriales</em> que empuja $y_I$ a la derecha.</li>
+      <li><strong>Punto E (en tus apuntes, B):</strong> Cruce de $[\dot{y}_I=0]$ y $[\dot{\theta}=0]$ con $\tilde{\theta} > \theta^*$. El producto $y_I$ y el precio relativo $\theta$ se estabilizan, pero como $\tilde{\theta} > \theta^*$, <strong>la inflación es perpetua</strong> ($\pi_A = \pi_I = \kappa(\tilde{\theta}-\theta^*) > 0$).</li>
+      <li><strong>Punto G (en tus apuntes, C):</strong> Cruce de $[\dot{y}_I=0]$ y $[\dot{P}_A=0]$. Ambos mercados de bienes están en equilibrio, pero los salarios reales han caído por debajo de la meta, desatando inflación salarial.</li>
+    </ul>
+  </div>
+  
+  <div class="controls">
+    <div class="ctrl-row">
+      <label>Meta Salarial / Markup ($\theta^*$ requerido)</label>
+      <input type="range" id="sim3-thetastar" min="15" max="55" step="1" value="25" style="accent-color: var(--rust);">
+      <span class="ctrl-val" id="val-sim3-thetastar" style="color: var(--rust);">θ* = 25</span>
+    </div>
+    <div class="ctrl-row">
+      <label>Gasto Público Industrial ($g$)</label>
+      <input type="range" id="sim3-g" min="10" max="45" step="1" value="30" style="accent-color: var(--slate);">
+      <span class="ctrl-val" id="val-sim3-g" style="color: var(--slate);">g = 30</span>
+    </div>
+  </div>
+  
+  <div class="chart-wrap"><canvas id="chart-sim3"></canvas></div>
+</div>
+
+<div class="callout result">
+  <span class="c-tag">Corolario y Programas de Estabilización</span>
+  <strong>No existe ningún equilibrio estable de largo plazo con inflación cero</strong> en este modelo porque el sistema está <strong>sobredeterminado</strong>: el precio relativo que vacía los mercados de bienes (Punto G/C) es inconsistente con el precio relativo que satisface las demandas distributivas de los trabajadores ($\theta^*$ en el Punto B/A). <br><br>
+  <strong>¿Cómo estabilizar?</strong> (1) Una contracción fiscal ($\downarrow g$) que desplace $[\dot{y}_I=0]$ hacia la izquierda hasta pasar por el Punto B elimina la espiral, pero al costo de una recesión industrial permanente; (2) Una <strong>política de ingresos</strong> que reduzca el markup $\gamma$ o modere $\omega^*$ eleva $\theta^*$ hasta hacerlo coincidir con el equilibrio de bienes sin sacrificar producción; (3) Sin embargo, como muestran Agénor y Montiel en la síntesis <em>estructuralista-monetarista</em> (Sección 1.3), intentar resolver el conflicto mediante subsidios a los alimentos ($s$) financiados con emisión monetaria introduce la restricción presupuestaria del gobierno y puede resultar inflacionario a largo plazo.
+</div>
+
+
+<footer>
+  Notas interactivas elaboradas para el curso de Macroeconomía II, Facultad de Ciencias Económicas — Universidad de Buenos Aires.<br><br>
+  <strong>Bibliografía de referencia:</strong><br>
+  Agénor, P.-R., & Montiel, P. J. (2008). <em>Development Macroeconomics</em> (3rd ed., Capítulo 12: "Inflation and Short-Run Dynamics"). Princeton University Press.<br>
+  Cardoso, E. A. (1981). Food supply and inflation. <em>Journal of Development Economics</em>, 8(3), 269–284.<br>
+  Bruno, M., & Fischer, S. (1990). Seigniorage, operating rules, and the high inflation trap. <em>Quarterly Journal of Economics</em>, 105(2), 353–374.
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "$", right: "$", display: false}
+        ],
+        ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"],
+        throwOnError: false
+    });
+
+    // =========================================================================
+    // SIMULADOR 1: Bruno & Fischer (1990) - Figura 12.1 en el plano (mu, pi^a)
+    // =========================================================================
+    const ctx1 = document.getElementById('chart-sim1').getContext('2d');
+    const chart1 = new Chart(ctx1, {
+        type: 'scatter',
+        data: {
+            datasets: [
+                {
+                    label: 'Recta 45° (Estado Estacionario: πᵃ = μ)',
+                    data: [],
+                    showLine: true,
+                    borderColor: '#8a8678',
+                    borderDash: [6, 4],
+                    borderWidth: 2,
+                    pointRadius: 0
+                },
+                {
+                    label: 'Curva D: d = μ·exp(-α·πᵃ)',
+                    data: [],
+                    showLine: true,
+                    borderColor: '#2a4a6a',
+                    borderWidth: 3,
+                    pointRadius: 0,
+                    tension: 0.2
+                },
+                {
+                    label: 'Equilibrio A (Estable bajo Exp. Adaptativas)',
+                    data: [],
+                    backgroundColor: '#2a5a3a',
+                    borderColor: '#2a5a3a',
+                    pointRadius: 7,
+                    pointHoverRadius: 9
+                },
+                {
+                    label: 'Equilibrio B (Inestable / Trampa Alta Inflación)',
+                    data: [],
+                    backgroundColor: '#8a3a1a',
+                    borderColor: '#8a3a1a',
+                    pointRadius: 7,
+                    pointHoverRadius: 9
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: { duration: 200 },
+            plugins: {
+                legend: { labels: { font: { family: "'Jost', sans-serif", size: 12.5 }, color: '#3c3a32' } }
+            },
+            scales: {
+                x: {
+                    type: 'linear',
+                    min: 0,
+                    max: 1.2,
+                    title: { display: true, text: 'Tasa de Crecimiento Monetario (μ)', font: { family: "'Jost', sans-serif", size: 13 } },
+                    grid: { color: '#eae6d8' },
+                    ticks: { font: { family: "'Inconsolata', monospace", size: 12 }, color: '#8a8678' }
+                },
+                y: {
+                    type: 'linear',
+                    min: 0,
+                    max: 1.2,
+                    title: { display: true, text: 'Inflación Esperada (πᵃ)', font: { family: "'Jost', sans-serif", size: 13 } },
+                    grid: { color: '#eae6d8' },
+                    ticks: { font: { family: "'Inconsolata', monospace", size: 12 }, color: '#8a8678' }
+                }
+            }
+        }
+    });
+
+    function updateSim1() {
+        const d = parseFloat(document.getElementById('sim1-d').value);
+        const alpha = parseFloat(document.getElementById('sim1-alpha').value);
+        const dMax = Math.exp(-1) / alpha;
+
+        let statusText = d.toFixed(3);
+        if (d > dMax + 0.001) {
+            statusText += " (¡d > dˢ! Hiperinflación)";
+        } else if (Math.abs(d - dMax) <= 0.003) {
+            statusText += " (≈ dˢ Máximo)";
+        }
+        document.getElementById('val-sim1-d').innerText = statusText;
+        document.getElementById('val-sim1-alpha').innerText = alpha.toFixed(1) + " (dˢ=" + dMax.toFixed(3) + ")";
+
+        // 45 degree line
+        const line45 = [{x: 0, y: 0}, {x: 1.2, y: 1.2}];
+
+        // Curve D: mu = d * exp(alpha * pi^a)
+        const curveD = [];
+        for (let pia = 0; pia <= 1.15; pia += 0.015) {
+            const mu = d * Math.exp(alpha * pia);
+            if (mu <= 1.25) {
+                curveD.push({x: mu, y: pia});
+            }
+        }
+
+        // Find intersections with 45-degree line: d * exp(alpha * pi) = pi
+        const eqA = [];
+        const eqB = [];
+        if (d <= dMax) {
+            // Low inflation root in [0, 1/alpha]
+            let low = 0, high = 1 / alpha;
+            for (let i = 0; i < 35; i++) {
+                let mid = (low + high) / 2;
+                if (d * Math.exp(alpha * mid) - mid > 0) low = mid;
+                else high = mid;
+            }
+            const rootA = (low + high) / 2;
+            eqA.push({x: rootA, y: rootA});
+
+            // High inflation root in [1/alpha, 3.0]
+            low = 1 / alpha; high = 2.5;
+            if (d * Math.exp(alpha * high) - high > 0) {
+                for (let i = 0; i < 35; i++) {
+                    let mid = (low + high) / 2;
+                    if (d * Math.exp(alpha * mid) - mid < 0) low = mid;
+                    else high = mid;
+                }
+                const rootB = (low + high) / 2;
+                if (rootB <= 1.2) eqB.push({x: rootB, y: rootB});
+            }
+        }
+
+        chart1.data.datasets[0].data = line45;
+        chart1.data.datasets[1].data = curveD;
+        chart1.data.datasets[2].data = eqA;
+        chart1.data.datasets[3].data = eqB;
+        chart1.update();
+    }
+
+    document.getElementById('sim1-d').addEventListener('input', updateSim1);
+    document.getElementById('sim1-alpha').addEventListener('input', updateSim1);
+    updateSim1();
+
+
+    // =========================================================================
+    // SIMULADOR 2: Diagrama de Fases Estructuralista sin Puja (Figura 12.3)
+    // =========================================================================
+    const ctx2 = document.getElementById('chart-sim2').getContext('2d');
+    const chart2 = new Chart(ctx2, {
+        type: 'scatter',
+        data: {
+            datasets: [
+                {
+                    label: 'Equilibrio Mercado Alimentos (Ṗ_A = 0)',
+                    data: [],
+                    showLine: true,
+                    borderColor: '#2a4a6a',
+                    borderWidth: 2.8,
+                    pointRadius: 0
+                },
+                {
+                    label: 'Equilibrio Mercado Industrial (ẏ_I = 0)',
+                    data: [],
+                    showLine: true,
+                    borderColor: '#2a5a3a',
+                    borderWidth: 2.8,
+                    pointRadius: 0
+                },
+                {
+                    label: 'Trayectoria Dinámica desde A hacia E',
+                    data: [],
+                    showLine: true,
+                    borderColor: '#8a3a1a',
+                    borderDash: [4, 3],
+                    borderWidth: 2.5,
+                    pointRadius: 0,
+                    tension: 0.3
+                },
+                {
+                    label: 'Punto Inicial A',
+                    data: [],
+                    backgroundColor: '#8a3a1a',
+                    pointRadius: 6
+                },
+                {
+                    label: 'Equilibrio Estable E',
+                    data: [],
+                    backgroundColor: '#111009',
+                    pointRadius: 7
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: { duration: 200 },
+            plugins: {
+                legend: { labels: { font: { family: "'Jost', sans-serif", size: 12.5 }, color: '#3c3a32' } }
+            },
+            scales: {
+                x: {
+                    type: 'linear',
+                    min: 0,
+                    max: 100,
+                    title: { display: true, text: 'Producción Industrial (y_I)', font: { family: "'Jost', sans-serif", size: 13 } },
+                    grid: { color: '#eae6d8' }
+                },
+                y: {
+                    type: 'linear',
+                    min: 0,
+                    max: 60,
+                    title: { display: true, text: 'Precio Agrícola (P_A)', font: { family: "'Jost', sans-serif", size: 13 } },
+                    grid: { color: '#eae6d8' }
+                }
+            }
+        }
+    });
+
+    function updateSim2() {
+        const g = parseFloat(document.getElementById('sim2-g').value);
+        const alpha = parseFloat(document.getElementById('sim2-alpha').value);
+        document.getElementById('val-sim2-g').innerText = g;
+        document.getElementById('val-sim2-alpha').innerText = alpha.toFixed(2);
+
+        const delta = 0.4;
+        const yA = 1.0;
+
+        // Slope of P_A = 0: P_A = [alpha*delta / (1 - alpha*delta)] * y_I
+        const slopePA = (alpha * delta) / (1 - alpha * delta);
+
+        // Curve y_I = 0: y_I = alpha*(1-delta)*(P_A + y_I) + g
+        // => P_A = [ (1 - alpha*(1-delta)) / (alpha*(1-delta)) ] * y_I - g / (alpha*(1-delta))
+        const slopeYI = (1 - alpha * (1 - delta)) / (alpha * (1 - delta));
+        const interceptYI = -g / (alpha * (1 - delta));
+
+        const curvePA = [{x: 0, y: 0}, {x: 100, y: slopePA * 100}];
+        const curveYI = [{x: 0, y: interceptYI}, {x: 100, y: slopeYI * 100 + interceptYI}];
+
+        // Equilibrium E
+        const yI_eq = -interceptYI / (slopeYI - slopePA);
+        const PA_eq = slopePA * yI_eq;
+
+        // Simulate ODE trajectory from initial point A (left of both curves, above P_A=0)
+        const startA = {x: 18, y: 26};
+        const traj = [{x: startA.x, y: startA.y}];
+        let curY = startA.x;
+        let curP = startA.y;
+        const dt = 0.15;
+        for (let step = 0; step < 120; step++) {
+            const dy = 0.8 * (alpha * (1 - delta) * (curP * yA + curY) + g - curY);
+            const dP = 0.5 * (alpha * delta * (curP * yA + curY) - curP * yA);
+            curY += dy * dt;
+            curP += dP * dt;
+            traj.push({x: curY, y: curP});
+        }
+
+        chart2.data.datasets[0].data = curvePA;
+        chart2.data.datasets[1].data = curveYI;
+        chart2.data.datasets[2].data = traj;
+        chart2.data.datasets[3].data = [startA];
+        chart2.data.datasets[4].data = [{x: yI_eq, y: PA_eq}];
+        chart2.update();
+    }
+
+    document.getElementById('sim2-g').addEventListener('input', updateSim2);
+    document.getElementById('sim2-alpha').addEventListener('input', updateSim2);
+    updateSim2();
+
+
+    // =========================================================================
+    // SIMULADOR 3: Ciclo Salario-Precio (Cardoso, 1981 - Figura 12.4)
+    // =========================================================================
+    const ctx3 = document.getElementById('chart-sim3').getContext('2d');
+    const chart3 = new Chart(ctx3, {
+        type: 'scatter',
+        data: {
+            datasets: [
+                {
+                    label: 'Recta [ẏ_I = 0] (Equilibrio Industrial)',
+                    data: [],
+                    showLine: true,
+                    borderColor: '#8a3a1a',
+                    borderWidth: 2.8,
+                    pointRadius: 0
+                },
+                {
+                    label: 'Recta AA [Ṗ_A = 0] (Equilibrio Alimentos)',
+                    data: [],
+                    showLine: true,
+                    borderColor: '#2a4a6a',
+                    borderWidth: 2.8,
+                    pointRadius: 0
+                },
+                {
+                    label: 'Recta [θ̇ = 0] (Igualación Inflación Agro e Ind.)',
+                    data: [],
+                    showLine: true,
+                    borderColor: '#2a5a3a',
+                    borderWidth: 2.8,
+                    pointRadius: 0
+                },
+                {
+                    label: 'Punto B (θ = θ* : Paz Salarial, Exceso Dem. Ind.)',
+                    data: [],
+                    backgroundColor: '#2a4a6a',
+                    pointRadius: 7
+                },
+                {
+                    label: 'Punto E (θ̃ > θ* : Inflación Crónica Perpetua)',
+                    data: [],
+                    backgroundColor: '#2a5a3a',
+                    pointRadius: 8
+                },
+                {
+                    label: 'Punto G (Eq. Bienes, Salario Real < Meta)',
+                    data: [],
+                    backgroundColor: '#8a3a1a',
+                    pointRadius: 7
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: { duration: 200 },
+            plugins: {
+                legend: { labels: { font: { family: "'Jost', sans-serif", size: 12 }, color: '#3c3a32' } }
+            },
+            scales: {
+                x: {
+                    type: 'linear',
+                    min: 0,
+                    max: 100,
+                    title: { display: true, text: 'Producción Industrial (y_I)', font: { family: "'Jost', sans-serif", size: 13 } },
+                    grid: { color: '#eae6d8' }
+                },
+                y: {
+                    type: 'linear',
+                    min: 0,
+                    max: 90,
+                    title: { display: true, text: 'Precio Relativo Agrícola (θ = P_A / P_I)', font: { family: "'Jost', sans-serif", size: 13 } },
+                    grid: { color: '#eae6d8' }
+                }
+            }
+        }
+    });
+
+    function updateSim3() {
+        const thetaStar = parseFloat(document.getElementById('sim3-thetastar').value);
+        const g = parseFloat(document.getElementById('sim3-g').value);
+        document.getElementById('val-sim3-thetastar').innerText = "θ* = " + thetaStar;
+        document.getElementById('val-sim3-g').innerText = "g = " + g;
+
+        // Slopes following Figure 12.4: slope(yI=0) > slope(AA) > slope(theta_dot=0)
+        const m_AA = 0.85;
+        const b_AA = 0;
+
+        // Point B is where AA and [theta_dot=0] intersect at theta = thetaStar
+        const yI_B = (thetaStar - b_AA) / m_AA;
+
+        const m_theta = 0.45;
+        const b_theta = thetaStar - m_theta * yI_B;
+
+        const m_YI = 1.65;
+        const b_YI = -1.6 * g;
+
+        // Point E: intersection of [yI=0] and [theta_dot=0]
+        const yI_E = (b_theta - b_YI) / (m_YI - m_theta);
+        const theta_E = m_theta * yI_E + b_theta;
+
+        // Point G: intersection of [yI=0] and AA
+        const yI_G = (b_AA - b_YI) / (m_YI - m_AA);
+        const theta_G = m_AA * yI_G + b_AA;
+
+        chart3.data.datasets[0].data = [{x: 0, y: b_YI}, {x: 100, y: m_YI * 100 + b_YI}];
+        chart3.data.datasets[1].data = [{x: 0, y: b_AA}, {x: 100, y: m_AA * 100 + b_AA}];
+        chart3.data.datasets[2].data = [{x: 0, y: b_theta}, {x: 100, y: m_theta * 100 + b_theta}];
+        chart3.data.datasets[3].data = [{x: yI_B, y: thetaStar}];
+        chart3.data.datasets[4].data = [{x: yI_E, y: theta_E}];
+        chart3.data.datasets[5].data = [{x: yI_G, y: theta_G}];
+        chart3.update();
+    }
+
+    document.getElementById('sim3-thetastar').addEventListener('input', updateSim3);
+    document.getElementById('sim3-g').addEventListener('input', updateSim3);
+    updateSim3();
+});
+</script>
+
+</body>
+</html>
